@@ -2,6 +2,9 @@
 
 > An electron-vue project
 
+### Customize configuration
+[web的electron-vue版本](https://github.com/FelisSilvestrisCatus/web).
+
 #### Build Setup
 
 ``` bash
