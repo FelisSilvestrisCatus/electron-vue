@@ -22,6 +22,10 @@ const {VueLoaderPlugin} = require('vue-loader')
 let whiteListedModules = ['vue']
 
 let rendererConfig = {
+    devServer: {
+        disableHostCheck: true
+        //关闭域名检查
+    },
     devtool: '#cheap-module-eval-source-map',
     entry: {
         renderer: path.join(__dirname, '../src/renderer/main.js')
@@ -75,7 +79,16 @@ let rendererConfig = {
                 }
             },
             {
+                test: /\.svg$/,
+                loader: 'svg-sprite-loader',
+                options: {
+                    symbolId: 'icon-[name]'
+                },
+                include: [path.join(__dirname, '../src/renderer/components/icon/svg')]
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                exclude: [path.join(__dirname, '../src/renderer/components/icon/svg')],
                 use: {
                     loader: 'url-loader',
                     query: {
@@ -138,7 +151,7 @@ let rendererConfig = {
         },
         extensions: ['.js', '.vue', '.json', '.css', '.node']
     },
-    target: 'electron-renderer'
+    target: 'electron-renderer',
 }
 
 /**

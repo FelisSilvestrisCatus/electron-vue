@@ -24,7 +24,6 @@
 
 <script>
     import bus from './bus';
-
     export default {
         data() {
             return {

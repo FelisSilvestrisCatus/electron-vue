@@ -24,14 +24,15 @@
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avator">
-                    <avatar :username=user.uname :size="45" color="#fff" background-color="#FFC107"></avatar>
+                    <avatar :username=getuname :size="45" color="#fff" background-color="#FFC107"></avatar>
                 </div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        {{user.uname}} <i class="el-icon-caret-bottom"></i>
+                        {{getuname}} <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item divided command="backindex">首页</el-dropdown-item>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -53,8 +54,12 @@
                 message: 0
             }
         },
-        created() {
-            this.user = this.$store.state.user;
+        computed: {
+            getuname() {
+                // let user = eval("(" + localStorage.getItem('user') + ")");
+                let user = JSON.parse(localStorage.getItem('user'));
+                return this.$store.state.user ? this.$store.state.user.uname : user.uname;
+            }
         },
         components: {
             Avatar
@@ -65,6 +70,9 @@
                 if (command === 'loginout') {
                     this.$store.commit(types.LOGOUT);
                     this.$router.push('/login');
+                }
+                if (command === 'backindex') {
+                    this.$router.push('/dashboard');
                 }
             },
             // 侧边栏折叠

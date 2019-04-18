@@ -13,7 +13,6 @@
 .plugins-tips a {
     color: #00d1b2;
 }
-
 .el-upload--text em {
     color: #00d1b2;
 }
@@ -21,12 +20,10 @@
 .pure-button {
     background: #00d1b2;
 }
-
 .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
     background-color: #00d1b2 !important;
     border-color: #00d1b2 !important;
 }
-
 .tags-li.active {
     border: 1px solid #00d1b2;
     background-color: #00d1b2;

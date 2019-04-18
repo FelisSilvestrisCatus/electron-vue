@@ -157,57 +157,24 @@
                 lastlogintype: "",
                 havelast: true,
                 user: null,
-                todoList: [{
-                    title: '今天要修复100个bug',
-                    status: false,
-                },
+                todoList: [
                     {
-                        title: '今天要修复100个bug',
+                        title: '今天王林写了3个bug',
                         status: false,
                     },
                     {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: false,
-                    }, {
-                        title: '今天要修复100个bug',
+                        title: '今天重构了过滤器,过滤了users.flag!=0的情况',
                         status: false,
                     },
-                    {
-                        title: '今天要修复100个bug',
-                        status: true,
-                    },
-                    {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: true,
-                    }
                 ],
-                data: [{
-                    name: '2018/09/04',
-                    value: 1083
-                },
+                data: [
+                    {
+                        name: '2018/09/04',
+                        value: 998
+                    },
                     {
                         name: '2018/09/05',
-                        value: 941
-                    },
-                    {
-                        name: '2018/09/06',
-                        value: 1139
-                    },
-                    {
-                        name: '2018/09/07',
-                        value: 816
-                    },
-                    {
-                        name: '2018/09/08',
-                        value: 327
-                    },
-                    {
-                        name: '2018/09/09',
-                        value: 228
-                    },
-                    {
-                        name: '2018/09/10',
-                        value: 1065
+                        value: 999
                     }
                 ],
                 options: {
@@ -234,7 +201,7 @@
         },
         computed: {
             role() {
-                return this.user.type === '1' ? '老师' : '学生';
+                return this.user.type === 1 ? '老师' : '学生';
             }
         },
         created() {
@@ -278,17 +245,21 @@
                     method: 'GET',
                     url: '/usersLogin/getLast',
                 }).then(response => {
-                    var resdata = response.data;
-                    if (resdata.isfirst === "true")
-                        this.havelast = false;
-                    this.lastloginaddress = resdata.area;
-                    this.lastlogintime = resdata.time;
-                    this.lastlogintype = resdata.lasttype;
-                    this.beforelogintime = resdata.lasttime;
-                    this.beforeloginaddress = resdata.lastarea;
-                    this.beforelogintype = resdata.type;
-                })
+                        var resdata = response.data;
+                        this.lastloginaddress = resdata.area;
+                        this.lastlogintime = resdata.time;
+                        this.lastlogintype = resdata.lasttype;
 
+                        //用户第一次登录
+                        if (resdata.isfirst === "true") {
+                            this.havelast = false;
+                        } else {
+                            this.beforelogintime = resdata.lasttime;
+                            this.beforeloginaddress = resdata.lastarea;
+                            this.beforelogintype = resdata.type;
+                        }
+                    },
+                )
             }
         }
     }
