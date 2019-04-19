@@ -1,7 +1,5 @@
 .DS_Store
-dist/electron/*
-dist/web/*
-build/*
+dist/*
 !build/icons
 node_modules/
 npm-debug.log
@@ -9,7 +7,4 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 .idea
-/dist/
-/node_modules/
-!/build/icons/
-/build/
+
