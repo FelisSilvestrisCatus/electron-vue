@@ -62,6 +62,9 @@ export default new Vuex.Store({
             localStorage.removeItem('user');
             state.token = null;
             state.user = null;
+            state.routers = null;
+            state.addRouters = null;
+            state.norouter = true;
         },
         [types.SET_ROUTERS]: (state, routers) => {
             state.addRouters = routers;

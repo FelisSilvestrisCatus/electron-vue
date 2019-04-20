@@ -24,7 +24,7 @@ Vue.directive('dialogDrag', {
             const disY = e.clientY - dialogHeaderEl.offsetTop;
 
             const screenWidth = document.body.clientWidth; // body当前宽度
-            const screenHeight = document.documentElement.clientHeight; // 可见区域高度(应为body高度，可某些环境下无法获取)
+            const screenHeight = document.documentElement.clientHeight; // 可见区域高度(应为body高度，可某些环境下无法获取) 
 
             const dragDomWidth = dragDom.offsetWidth; // 对话框宽度
             const dragDomheight = dragDom.offsetHeight; // 对话框高度
@@ -47,11 +47,10 @@ Vue.directive('dialogDrag', {
             } else {
                 styL = +styL.replace(/\px/g, '');
                 styT = +styT.replace(/\px/g, '');
-            }
-            ;
+            };
 
             document.onmousemove = function (e) {
-                // 通过事件委托，计算移动的距离
+                // 通过事件委托，计算移动的距离 
                 let left = e.clientX - disX;
                 let top = e.clientY - disY;
 
@@ -68,7 +67,7 @@ Vue.directive('dialogDrag', {
                     top = maxDragDomTop;
                 }
 
-                // 移动当前元素
+                // 移动当前元素  
                 dragDom.style.cssText += `;left:${left + styL}px;top:${top + styT}px;`;
             };
 

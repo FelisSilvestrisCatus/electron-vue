@@ -17,11 +17,23 @@
             const vnodes = [];
 
             if (icon) {
-                vnodes.push('<svg-icon icon-class={icon}/>')
+                let node = h('svg-icon', {
+                        attrs: {
+                            'icon-class': icon,
+                        }
+                    }
+                );
+                vnodes.push(node);
             }
 
             if (title) {
-                vnodes.push("<span slot='title'>{(title)}</span>")
+                let node = h('span', {
+                        attrs: {
+                            slot: title,
+                        }
+                    }, [title]
+                );
+                vnodes.push(node);
             }
             return vnodes
         }

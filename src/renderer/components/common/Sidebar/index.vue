@@ -46,7 +46,7 @@
         /*font-size: 35px;*/
     }
 
-    .el-menu-item {
+    .el-menu-item{
         font-size: 22px !important;
     }
 </style>

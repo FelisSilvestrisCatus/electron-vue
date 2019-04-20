@@ -32,7 +32,7 @@
                         no-data-text="您还没有课程">
                     <el-option
                             v-for="item in myCourse"
-                            :key="item.cname"
+                            :key="item.courseid"
                             :label="item.cname"
                             :value="item.courseid">
                     </el-option>

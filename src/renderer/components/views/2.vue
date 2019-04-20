@@ -124,19 +124,6 @@
                 </el-card>
             </el-col>
         </el-row>
-        <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :data="data" type="bar" :options="options"></schart>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :data="data" type="line"
-                            :options="options2"></schart>
-                </el-card>
-            </el-col>
-        </el-row>
     </div>
 </template>
 

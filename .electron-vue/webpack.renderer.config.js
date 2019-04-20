@@ -22,10 +22,6 @@ const {VueLoaderPlugin} = require('vue-loader')
 let whiteListedModules = ['vue']
 
 let rendererConfig = {
-    devServer: {
-        disableHostCheck: true
-        //关闭域名检查
-    },
     devtool: '#cheap-module-eval-source-map',
     entry: {
         renderer: path.join(__dirname, '../src/renderer/main.js')
@@ -151,7 +147,7 @@ let rendererConfig = {
         },
         extensions: ['.js', '.vue', '.json', '.css', '.node']
     },
-    target: 'electron-renderer',
+    target: 'electron-renderer'
 }
 
 /**

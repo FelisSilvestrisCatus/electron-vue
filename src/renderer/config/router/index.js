@@ -4,7 +4,7 @@ import Layout from '../../components/views/Home.vue'
 import studentRouter from './student'
 import teacherRouter from "./teacher";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export const constantRouterMap = [
     {

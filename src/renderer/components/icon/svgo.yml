@@ -1,7 +1,7 @@
 plugins:
-  - removeAttrs:
-      attrs:
-        - 'fill'
-        - 'fill-rule'
+- removeAttrs:
+    attrs:
+      - 'fill'
+      - 'fill-rule'
 
 #svg压缩工具

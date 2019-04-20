@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
         return;
     }
     //判断token
-    if (store.state.token == null) {
+    if (store.state.token == null||store.state.token==='') {
         next({
             path: '/login',
             query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由

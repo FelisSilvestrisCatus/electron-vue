@@ -1,10 +1,13 @@
 .DS_Store
-dist/*
 !build/icons
+dist/electron/*
+dist/web/*
+build/*
 node_modules/
 npm-debug.log
 npm-debug.log.*
 thumbs.db
 !.gitkeep
 .idea
-
+/node_modules/
+/build/web-win32-x64/

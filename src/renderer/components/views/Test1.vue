@@ -12,7 +12,7 @@
         name: "Test",
         data() {
             return {
-                usertype: "user type : " + this.$store.state.user.type,
+                usertype: "user type : "+this.$store.state.user.type,
             }
         }
     }
