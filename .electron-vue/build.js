@@ -2,6 +2,10 @@
 
 process.env.NODE_ENV = 'production'
 
+//设置客户端标识
+process.env.UserTypeEnv = 'electron'
+
+
 const {say} = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')

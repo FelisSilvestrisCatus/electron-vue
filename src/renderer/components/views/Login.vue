@@ -144,6 +144,7 @@
         name: '',
         data() {
             return {
+                UserTypeEnv: '',
                 msg: '',
                 //密码登录
                 ruleForm: {
@@ -189,9 +190,24 @@
 
                 registerChangeCodeDisabled: false,
                 registerChangeCodeOpacity: "1"
+
             }
         },
+        created() {
+            this.CheckUserTypeEnv();
+        },
         methods: {
+            //判断登录类型
+            CheckUserTypeEnv() {
+                switch (process.env.UserTypeEnv) {
+                    case 'vue':
+                        this.UserTypeEnv = 1;
+                        return;
+                    case 'electron':
+                        this.UserTypeEnv = 3;
+                        return;
+                }
+            },
             //获取登录验证码
             getPhoneValidateCode() {
                 this.$axios({
@@ -234,7 +250,7 @@
                             method: 'POST',
                             url: '/validatecode/loginByCode',
                             data: {
-                                loginType: 1,
+                                loginType: this.UserTypeEnv,
                                 phone: this.ruleFormCode.phone,
                                 code: this.ruleFormCode.code
                             }
@@ -261,7 +277,7 @@
                     }
                 });
             },
-            //提交登录
+            //提交登录（密码）
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -269,7 +285,7 @@
                             method: 'POST',
                             url: '/users/login',
                             data: {
-                                loginType: 1,
+                                loginType: this.UserTypeEnv,
                                 phone: this.ruleForm.phone,
                                 password: this.ruleForm.password
                             }

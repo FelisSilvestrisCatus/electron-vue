@@ -1,5 +1,8 @@
 'use strict'
 
+//设置客户端标识
+process.env.UserTypeEnv = 'electron'
+
 const chalk = require('chalk')
 const electron = require('electron')
 const path = require('path')
