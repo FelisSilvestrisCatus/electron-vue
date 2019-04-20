@@ -3,7 +3,7 @@
 process.env.NODE_ENV = 'production'
 
 //设置客户端标识
-process.env.UserTypeEnv = 'electron'
+process.env.VUE_APP_LOGINTYPE = 'electron'
 
 
 const {say} = require('cfonts')

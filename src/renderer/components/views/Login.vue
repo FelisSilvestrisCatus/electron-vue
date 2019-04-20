@@ -199,12 +199,15 @@
         methods: {
             //判断登录类型
             CheckUserTypeEnv() {
-                switch (process.env.UserTypeEnv) {
+                switch (process.env.VUE_APP_LOGINTYPE) {
                     case 'vue':
                         this.UserTypeEnv = 1;
                         return;
                     case 'electron':
                         this.UserTypeEnv = 3;
+                        return;
+                    default:
+                        this.UserTypeEnv = 1;
                         return;
                 }
             },
