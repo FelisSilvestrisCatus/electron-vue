@@ -4,23 +4,25 @@
         <div class="collapse-btn" @click="collapseChage">
             <i class="el-icon-menu"></i>
         </div>
-        <div class="logo">有倾向性的可信点名系统</div>
+        <div class="logo hidden-md-and-down">有倾向性的可信点名系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
-                <div class="btn-fullscreen" @click="handleFullScreen">
+                <div class="btn-fullscreen hidden-md-and-down" @click="handleFullScreen">
                     <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" placement="bottom">
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
                 </div>
                 <!-- 消息中心 -->
                 <div class="btn-bell">
-                    <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-                        <!--<router-link to="/tabs">-->
-                        <i class="el-icon-bell"></i>
-                        <!--</router-link>-->
-                    </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message"></span>
+                    <el-badge :value="message" class="item">
+                        <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
+                            <router-link to="/tabs">
+                                <i class="el-icon-bell"></i>
+                            </router-link>
+                        </el-tooltip>
+                    </el-badge>
+
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avator">
@@ -51,20 +53,57 @@
                 collapse: false,
                 fullscreen: false,
                 user: null,
-                message: 0
+                message: 0,
+                notify: 0,
             }
         },
         computed: {
             getuname() {
-                // let user = eval("(" + localStorage.getItem('user') + ")");
                 let user = JSON.parse(localStorage.getItem('user'));
                 return this.$store.state.user ? this.$store.state.user.uname : user.uname;
             }
+        },
+        created() {
+            this.getUnReadNum();
         },
         components: {
             Avatar
         },
         methods: {
+            getUnReadNum() {
+                var msgnum;
+                if (this.$store.state.user == null) {
+                    clearTimeout(msgnum);
+                    return;
+                } else {
+                    this.$axios({
+                        method: 'POST',
+                        url: '/usermessage/getUnReadNum',
+                        data: {}
+                    }).then(response => {
+                        if (this.message !== response.data.data) {
+                            this.notify = 0;
+                        } else {
+                            this.notify = 1;
+                        }
+
+                        if (this.notify === 0 && response.data.data !== "0") {
+                            this.message = response.data.data;
+                            this.notify = 1;
+                            this.$notify({
+                                title: '消息通知',
+                                message: '您有' + this.message + '条新消息，请到右上角的消息中心中查看',
+                                offset: 100,
+                                type: 'warning'
+                            });
+                        }
+                    });
+
+                    msgnum = setTimeout(() => {
+                        this.getUnReadNum();
+                    }, 6000);
+                }
+            },
             //退出操作
             handleCommand(command) {
                 if (command === 'loginout') {
@@ -112,6 +151,11 @@
             if (document.body.clientWidth < 1500) {
                 this.collapseChage();
             }
+
+            // eslint-disable-next-line no-unused-vars
+            bus.$on('changemsgnum', msg => {
+                this.getUnReadNum();
+            });
         }
     }
 </script>

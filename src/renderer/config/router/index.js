@@ -7,7 +7,7 @@ import teacherRouter from "./teacher";
 Vue.use(Router);
 
 export const constantRouterMap = [
-    {
+   {
         path: '/login',
         name: 'login',
         hidden: true,
@@ -20,19 +20,16 @@ export const constantRouterMap = [
         children: [
             {
                 path: '/dashboard',
-                meta: {
-                    title: '系统首页',
-                    icon: 'dashboard',
-                },
                 component: resolve => require(['../../components/views/Dashboard.vue'], resolve),
+                hidden: true,
+                meta: {title: 'dashboard'},
             },
             {
-                path: '/information',
-                component: resolve => require(['../../components/views/ChangeInfo.vue'], resolve),
-                meta: {
-                    title: '信息维护',
-                    icon: 'documentation',
-                }
+                path: '/tabs',
+                hidden: true,
+                component: resolve => require(['../../components/views/Tabs.vue'], resolve),
+                meta: {title: '消息中心'}
+
             }
         ]
     },

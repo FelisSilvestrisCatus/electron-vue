@@ -21,17 +21,21 @@
     "postinstall": ""
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "echarts": "^4.2.1",
+    "element-ui": "^2.7.2",
     "svg-baker-runtime": "^1.4.0",
     "svg-sprite-loader": "^4.1.3",
-    "axios": "^0.18.0",
-    "element-ui": "^2.7.2",
+    "v-charts": "^1.19.0",
     "vue": "^2.5.16",
-    "vue-electron": "^1.0.6",
-    "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0",
     "vue-avatar": "^2.1.7",
     "vue-axios": "^2.1.4",
-    "vue-router": "^3.0.2"
+    "vue-baidu-map": "^0.21.20",
+    "vue-electron": "^1.0.6",
+    "vue-router": "^3.0.2",
+    "vuescroll": "^4.12.2",
+    "vuex": "^3.0.1",
+    "vuex-electron": "^1.0.0"
   },
   "devDependencies": {
     "ajv": "^6.5.0",

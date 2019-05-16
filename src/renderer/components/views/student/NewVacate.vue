@@ -9,7 +9,7 @@
                     <el-option label="其他" value="2"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="请假时间" prop="vdatetime">
+            <el-form-item label="请假时间" prop="vdatetime" required>
                 <el-date-picker
                         v-model="ruleForm.vdatetime"
                         type="datetimerange"
@@ -19,6 +19,7 @@
                         value-format="yyyy-MM-dd HH:mm"
                         format="yyyy-MM-dd HH:mm"
                         align="left"
+                        :clearable="false"
                         :picker-options="pickerOptions"
                         :default-time="['08:00:00', '21:30:00']">
                 </el-date-picker>
@@ -49,19 +50,23 @@
             </el-form-item>
 
             <el-form-item label="附件上传">
-                <el-upload
-                        ref="upload"
-                        class="upload"
-                        drag
-                        action="Need but not use"
-                        :on-change="OnChange"
-                        :http-request="uploadFile"
-                        :before-upload="beforeUpload"
-                        :auto-upload="false"
-                        multiple>
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                </el-upload>
+                <el-row>
+                    <el-col :span="12">
+                        <el-upload
+                                ref="upload"
+                                class="upload"
+                                drag
+                                action="Need but not use"
+                                :on-change="OnChange"
+                                :http-request="uploadFile"
+                                :before-upload="beforeUpload"
+                                :auto-upload="false"
+                                multiple>
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        </el-upload>
+                    </el-col>
+                </el-row>
             </el-form-item>
 
             <el-form-item>
@@ -74,7 +79,7 @@
 
 <script>
     export default {
-        name: "MyVacate",
+        name: "NewVacate",
         data() {
             return {
                 //时间选择器快捷选项
@@ -108,7 +113,7 @@
                 ruleForm: {
                     vreason: '',
                     vcourse: [],
-                    vdatetime: new Date(),
+                    vdatetime: [],
                     vtype: '1',
                 },
                 formRules: {
@@ -127,20 +132,17 @@
             };
         },
         created() {
-            this.getJoinedClass();
+            this.getMyCourse();
         },
         methods: {
-            getJoinedClass() {
+            getMyCourse() {
                 this.$axios({
                     method: 'POST',
                     url: '/course/getMyCourse',
                     data: {}
                 }).then(response => {
                     var resdata = response.data;
-                    // var jsondata = eval('(' + resdata.data + ')');
-                    var jsondata = JSON.parse(resdata.data);
-                    console.log(jsondata);
-                    this.myCourse = jsondata;
+                    this.myCourse = JSON.parse(resdata.data);
                 })
             },
             //重置表单
@@ -150,7 +152,6 @@
             //获取附件列表
             OnChange(file, fileList) {
                 this.fileList = fileList
-
             },
             //上传附件前的检查
             beforeUpload(file) {
@@ -191,6 +192,14 @@
                 xhr.send(data)
             },
             submitForm(formName) {
+                console.log(this.ruleForm.vdatetime)
+                if (this.ruleForm.vdatetime == null || this.ruleForm.vdatetime[0] == null || this.ruleForm.vdatetime[1] == null) {
+                    this.$alert('请选择请假日期', '', {
+                        confirmButtonText: '确定'
+                    });
+                    return false;
+                }
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         let havafile = this.fileList.length >= 1;
@@ -208,10 +217,8 @@
                         }).then(response => {
                             var resdata = response.data;
                             if (resdata.state === "200" && havafile) {
-                                // this.uploadFiles();
                                 this.$refs.upload.submit();
                                 this.uploadFiles(resdata.vid);
-
                             } else if (resdata.state === "200") {
                                 this.$router.push('/myVacate');
                             } else {

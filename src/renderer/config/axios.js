@@ -20,27 +20,29 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-        // console.log("response" + response);
-        return response;
-    },
-    error => {
-        if (error.response.status === 401) {
+        if (response.data.state === '401') {
             store.commit(types.LOGOUT);
             router.replace({
                 path: '/login',
-                // query: {redirect: router.currentRoute.fullPath}
             });
-            return Promise.reject('401')   // 返回接口返回的错误信息
+        } else {
+            return response;
         }
+    },
+    error => {
+        if (error.response)
+            if (error.response.status === 401) {
+                store.commit(types.LOGOUT);
+                router.replace({
+                    path: '/login?type=401',
+                });
+                return Promise.reject('401')   // 返回接口返回的错误信息
+            }
     }
-)
-;
+);
 
-if (process.env.NODE_ENV === "production") {
-    axios.defaults.baseURL = 'http://vue.aloli.cn/api';
-} else {
-    axios.defaults.baseURL = 'http://127.0.0.1:8888';
-}
+
+axios.defaults.baseURL = 'https://vue.aloli.cn/api';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //改为表单提交
 axios.defaults.withCredentials = true; //携带cookie

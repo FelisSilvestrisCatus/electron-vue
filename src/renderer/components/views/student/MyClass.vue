@@ -30,18 +30,6 @@
                                     size="mini"
                                     placeholder="输入关键字搜索"/>
                         </template>
-                        <template slot-scope="scope">
-                            <!--                            <el-button-->
-                            <!--                                    size="mini"-->
-                            <!--                                    type="primary"-->
-                            <!--                                    @click="joinClassButton(scope.$index, scope.row)">加入-->
-                            <!--                            </el-button>-->
-                            <el-button
-                                    size="mini"
-                                    type="danger"
-                                    @click="handleDelete(scope.$index, scope.row)">查看
-                            </el-button>
-                        </template>
                     </el-table-column>
                 </el-table>
             </el-tab-pane>
@@ -80,11 +68,6 @@
                                     type="primary"
                                     @click="joinClassButton(scope.$index, scope.row)">加入
                             </el-button>
-                            <el-button
-                                    size="mini"
-                                    type="danger"
-                                    @click="handleDelete(scope.$index, scope.row)">查看
-                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -95,6 +78,7 @@
 
 <script>
     export default {
+        name: "MyClass",
         data() {
             return {
                 tableData: [],
@@ -141,18 +125,18 @@
                     var resdata = response.data;
                     this.$alert(resdata.msg, '操作结果', {
                         confirmButtonText: '确定',
+                        center: true,
                     });
-                })
+                });
+                this.getJoinedClass();
+                this.getAllClass();
             },
-            handleDelete(index, row) {
-                console.log(index, row);
-            }
         },
     }
 </script>
 
 <style scoped>
-    .el-tabs__item{
+    .el-tabs__item {
         height: 50px !important;
         font-size: 25px;
     }

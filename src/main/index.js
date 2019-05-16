@@ -14,13 +14,18 @@ const winURL = process.env.NODE_ENV === 'development'
     : `file://${__dirname}/index.html`
 
 function createWindow() {
+
+    const electron = require('electron');
+    const Menu = electron.Menu;
+    Menu.setApplicationMenu(null);
+
     /**
      * Initial window options
      */
     mainWindow = new BrowserWindow({
-        height: 563,
+        height: 900,
         useContentSize: true,
-        width: 1000
+        width: 1440
     })
 
     mainWindow.loadURL(winURL)

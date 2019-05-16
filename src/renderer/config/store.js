@@ -48,7 +48,8 @@ export default new Vuex.Store({
         token: null,
         norouter: true,
         routers: constantRouterMap,
-        addRouters: []
+        addRouters: [],
+        isPc:true,
     },
     mutations: {
         [types.LOGIN]: (state, data) => {
@@ -70,6 +71,9 @@ export default new Vuex.Store({
             state.addRouters = routers;
             state.routers = constantRouterMap.concat(routers);
             state.norouter = false;
+        },
+        [types.SET_PC]: (state, routers) => {
+            state.isPc = routers;
         }
     },
     actions: {
@@ -103,5 +107,6 @@ export default new Vuex.Store({
         token: state => state.user.token,
         permission_routers: state => state.routers,
         addRouters: state => state.addRouters,
+        norouter: state => state.norouter,
     }
 })

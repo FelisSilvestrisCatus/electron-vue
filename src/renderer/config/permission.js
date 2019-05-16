@@ -13,7 +13,7 @@ if (localStorage.getItem('token')) {
 }
 
 //免登录页面
-const whiteList = ['/login', '/registe', '/404'];// no redirect whitelist
+const whiteList = ['/login','/404'];// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
     //不需要登录
@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
         return;
     }
     //判断token
-    if (store.state.token == null||store.state.token==='') {
+    if (store.state.token == null) {
         next({
             path: '/login',
             query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
